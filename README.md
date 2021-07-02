@@ -8,3 +8,6 @@ The code now has two options:
 
   1.A short TCP scan on ports
   2.A detailed TCP scan on networks in the system
+  
+  
+  Trying to add a python gui.
