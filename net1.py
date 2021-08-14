@@ -10,13 +10,13 @@ if(choice == 1):
     print_lock = threading.Lock()
 # This part of the code I used threading as a challenge to myself.
     target = input('Enter the host to be scanned: ')
-    minlimit = int(input('Enter the minimum value'))
-    maxlimit = int(input('Enter the maximum value'))
+    minlimit = int(input('Enter the minimum value: '))
+    maxlimit = int(input('Enter the maximum value: '))
     t_IP = socket.gethostbyname(target)
     print('Starting scan on host: ', t_IP)
 
     def portscan(port):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #These sockets are used for sending and receiving packets
         try:
             con = s.connect((t_IP, port))
             with print_lock:
@@ -27,7 +27,7 @@ if(choice == 1):
         else:
             print("There are no networks within that range")
 
-    def threader():
+    def threader(): #We use threading so as to increase the speed of the programs as some ranges may take longer than normal
         while True:
             worker = q.get()
             portscan(worker)
@@ -37,7 +37,7 @@ if(choice == 1):
 
     for x in range(100):
         t = threading.Thread(target=threader)
-        t.daemon = True
+        t.daemon = True #It allows the program to run in the background
         t.start()
 
     for worker in range(minlimit, maxlimit):
